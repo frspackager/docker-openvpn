@@ -1,0 +1,6 @@
+.gitignore
+.dockerignore
+alpine
+docs
+init
+test
