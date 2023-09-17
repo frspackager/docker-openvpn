@@ -1,9 +1,9 @@
 # Original credit: https://github.com/jpetazzo/dockvpn
 
 # Smallest base image
-FROM alpine:3.17
+FROM alpine:latest
 
-LABEL maintainer="Kyle Manna <kyle@kylemanna.com>"
+LABEL maintainer="FRS Packager <packager@fr-software.com>"
 
 # Testing: pamtester
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing/" >> /etc/apk/repositories && \

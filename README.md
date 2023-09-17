@@ -6,7 +6,6 @@
 [![ImageLayers](https://images.microbadger.com/badges/image/frspackager/openvpn.svg)](https://microbadger.com/#/images/frspackager/openvpn)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ffrspackager%2Fdocker-openvpn.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Ffrspackager%2Fdocker-openvpn?ref=badge_shield)
 
-
 OpenVPN server in a Docker container complete with an EasyRSA PKI CA.
 
 This revised version is a simple update from fantastic work of Kyle Manna <kyle@kylemanna.com>.
@@ -16,6 +15,11 @@ to build multi-arch docker images.
 
 Extensively tested on [Digital Ocean $5/mo node](http://bit.ly/1C7cKr3) and has
 a corresponding [Digital Ocean Community Tutorial](http://bit.ly/1AGUZkq).
+
+#### Reference work by Kyle Manna
+
+* Docker Registry @ [kylemanna/openvpn](https://hub.docker.com/r/kylemanna/openvpn/)
+* GitHub @ [kylemanna/docker-openvpn](https://github.com/kylemanna/docker-openvpn)
 
 #### Upstream Links
 
@@ -55,7 +59,7 @@ a corresponding [Digital Ocean Community Tutorial](http://bit.ly/1AGUZkq).
 
       docker run -v $OVPN_DATA:/etc/openvpn --rm frspackager/openvpn ovpn_listclients
 
-* Renew the client certificates, revoking the old one
+* Renew a client certificate, revoking the old one
 
       docker run -v $OVPN_DATA:/etc/openvpn --rm frspackager/openvpn ovpn_renewclient CLIENTNAME
 
@@ -80,7 +84,7 @@ If you prefer to use `docker-compose` please refer to the [documentation](docs/d
 
 ## Debugging Tips
 
-* Create an environment variable with the name DEBUG and value of 1 to enable debug output (using "docker -e").
+* Create an environment variable with the name DEBUG and value of 1 to enable debug output (using `docker -e`).
 
         docker run -v $OVPN_DATA:/etc/openvpn -p 1194:1194/udp --cap-add=NET_ADMIN -e DEBUG=1 frspackager/openvpn
 

@@ -335,6 +335,8 @@ proto $OVPN_PROTO
 port 1194
 dev $OVPN_DEVICE$OVPN_DEVICEN
 status /tmp/openvpn-status.log
+data-ciphers-fallback BF-CBC
+topology subnet
 
 user nobody
 group nogroup

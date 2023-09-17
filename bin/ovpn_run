@@ -38,13 +38,23 @@ function addArg {
 # set up iptables rules and routing
 # this allows rules/routing to be altered by supplying this function
 # in an included file, such as ovpn_env.sh
+
+# On recent hosts, you need to use iptables-nft (New Format) for it to work.
 function setupIptablesAndRouting {
     iptables -t nat -C POSTROUTING -s $OVPN_SERVER -o $OVPN_NATDEVICE -j MASQUERADE 2>/dev/null || {
-      iptables -t nat -A POSTROUTING -s $OVPN_SERVER -o $OVPN_NATDEVICE -j MASQUERADE
+      iptables -t nat -A POSTROUTING -s $OVPN_SERVER -o $OVPN_NATDEVICE -j MASQUERADE 2>/dev/null || {
+        iptables-nft -t nat -C POSTROUTING -s $OVPN_SERVER -o $OVPN_NATDEVICE -j MASQUERADE 2>/dev/null || {
+          iptables-nft -t nat -A POSTROUTING -s $OVPN_SERVER -o $OVPN_NATDEVICE -j MASQUERADE
+        }
+      }
     }
     for i in "${OVPN_ROUTES[@]}"; do
         iptables -t nat -C POSTROUTING -s "$i" -o $OVPN_NATDEVICE -j MASQUERADE 2>/dev/null || {
-          iptables -t nat -A POSTROUTING -s "$i" -o $OVPN_NATDEVICE -j MASQUERADE
+          iptables -t nat -A POSTROUTING -s "$i" -o $OVPN_NATDEVICE -j MASQUERADE 2>/dev/null || {
+            iptables-nft -t nat -C POSTROUTING -s "$i" -o $OVPN_NATDEVICE -j MASQUERADE 2>/dev/null || {
+              iptables-nft -t nat -A POSTROUTING -s "$i" -o $OVPN_NATDEVICE -j MASQUERADE
+            }
+          }
         }
     done
 }
